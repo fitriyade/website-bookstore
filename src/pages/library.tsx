@@ -4,11 +4,48 @@ import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer";
 import BookList from "@/helpers/book-list";
-import { useState } from "react";
-import { ShoppingCart, BookMarked } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  ShoppingCart,
+  BookMarked,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 const LibraryPage = () => {
   const [selectedBook, setSelectedBook] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const booksPerPage = 4;
+  const [currentBooks, setCurrentBooks] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
+    // Calculate total pages
+    const total = Math.ceil(BookList.length / booksPerPage);
+    setTotalPages(total);
+
+    // Get books for current page
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const current = BookList.slice(indexOfFirstBook, indexOfLastBook);
+    setCurrentBooks(current);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handlePageClick = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <>
@@ -22,7 +59,7 @@ const LibraryPage = () => {
             <h1 className="font-semibold text-lg mb-4">Library</h1>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {BookList.map((book) => (
+              {currentBooks.map((book) => (
                 <div
                   key={book.id}
                   onClick={() => setSelectedBook(book)}
@@ -39,15 +76,13 @@ const LibraryPage = () => {
 
                   {/* Konten */}
                   <div className="flex-1 flex flex-col">
-                    {/* Nama buku - bisa expand */}
+                    {/* Nama buku */}
                     <h3 className="font-semibold text-sm md:text-base line-clamp-2 mb-1 flex-1">
                       {book.bookname}
                     </h3>
 
                     {/* Kategori */}
-                    <p className="text-xs text-gray-500 mb-2">
-                      {book.kategori}
-                    </p>
+                    <p className="text-xs text-gray-500 mb-2"></p>
 
                     {/* Baris bawah - Harga */}
                     <div className="flex justify-between items-center pt-2 border-t border-gray-300">
@@ -67,6 +102,52 @@ const LibraryPage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Pagination */}
+            {BookList.length > booksPerPage && (
+              <div className="flex justify-center items-center gap-2 mt-8">
+                <button
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  className={`p-2 rounded-lg ${
+                    currentPage === 1
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                {Array.from(
+                  { length: totalPages },
+                  (_, index) => index + 1,
+                ).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageClick(page)}
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium ${
+                      currentPage === page
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className={`p-2 rounded-lg ${
+                    currentPage === totalPages
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

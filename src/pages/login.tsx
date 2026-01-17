@@ -4,13 +4,14 @@ import Image from "next/image";
 import { Eye, Mail, Lock, Github, Chrome } from "lucide-react";
 import { useState } from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const headers = {
     "Content-Type": "application/json",
     "x-api-key": "pro_f8e12047372c3bdf414fe83a2eda7c7ecf0f924a9d3cc156",
   };
-
+  const router = useRouter();
   const [loginData, setLoginData] = useState<any>({
     email: "",
     password: "",
@@ -41,6 +42,7 @@ const LoginPage = () => {
         // Auto close modal setelah 3 detik
         setTimeout(() => {
           setShowSuccessModal(false);
+          router.push("/");
         }, 3000);
       } else {
         // Handle error dari API

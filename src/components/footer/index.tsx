@@ -33,7 +33,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Opening Hours - Clean Version */}
+          {/* Opening Hours  */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Store Hours</h4>
             <div className="space-y-2">

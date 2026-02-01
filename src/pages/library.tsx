@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer";
 import BookList from "@/helpers/book-list";
+import { useCart } from "@/context/cardContext";
 import { useState, useEffect } from "react";
 import {
   ShoppingCart,
@@ -11,8 +12,11 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { useRouter } from "next/navigation"; // Perhatikan: next/navigation untuk App Router
 
 const LibraryPage = () => {
+  const router = useRouter(); // useRouter dari next/navigation
+  const { addToCart } = useCart();
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 4;
@@ -47,6 +51,13 @@ const LibraryPage = () => {
     setCurrentPage(pageNumber);
   };
 
+  // Function to handle shopping cart click
+  const handleShoppingCartClick = (e: React.MouseEvent, book: any) => {
+    e.stopPropagation();
+    addToCart(book);
+    router.push("/cart"); // Navigate to cart
+  };
+
   return (
     <>
       <Navbar />
@@ -56,7 +67,16 @@ const LibraryPage = () => {
 
         <div className="flex-1 p-6">
           <div className="bg-white p-5 rounded-xl shadow">
-            <h1 className="font-semibold text-lg mb-4">Library</h1>
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="font-semibold text-lg">Library</h1>
+              <button
+                onClick={() => router.push("/cart")}
+                className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <ShoppingCart size={18} />
+                View Cart
+              </button>
+            </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {currentBooks.map((book) => (
@@ -82,7 +102,9 @@ const LibraryPage = () => {
                     </h3>
 
                     {/* Kategori */}
-                    <p className="text-xs text-gray-500 mb-2"></p>
+                    <p className="text-xs text-gray-500 mb-2">
+                      {book.kategori}
+                    </p>
 
                     {/* Baris bawah - Harga */}
                     <div className="flex justify-between items-center pt-2 border-t border-gray-300">
@@ -90,11 +112,16 @@ const LibraryPage = () => {
                       <div className="flex gap-2">
                         <BookMarked
                           size={18}
-                          className="text-gray-600 hover:text-blue-600 transition-colors"
+                          className="text-gray-600 hover:text-blue-600 transition-colors cursor-pointer"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            alert(`"${book.bookname}" bookmarked!`);
+                          }}
                         />
                         <ShoppingCart
                           size={18}
-                          className="text-gray-700 hover:text-blue-600 transition-colors"
+                          onClick={(e) => handleShoppingCartClick(e, book)}
+                          className="text-gray-700 hover:text-blue-600 transition-colors cursor-pointer"
                         />
                       </div>
                     </div>
@@ -155,11 +182,10 @@ const LibraryPage = () => {
       {/* MODAL */}
       {selectedBook && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-md rounded-xl p-6 relative">
-            {/* CLOSE BUTTON */}
+          <div className="bg-white w-full max-w-md rounded-xl p-6 relative mx-4">
             <button
               onClick={() => setSelectedBook(null)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+              className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"
             >
               ✕
             </button>
@@ -187,7 +213,20 @@ const LibraryPage = () => {
               {selectedBook.author}
             </p>
 
-            <p className="font-semibold">{selectedBook.price}</p>
+            <div className="flex justify-between items-center mt-4">
+              <p className="font-bold text-lg">{selectedBook.price}</p>
+              <button
+                onClick={() => {
+                  addToCart(selectedBook);
+                  setSelectedBook(null);
+                  router.push("/cart");
+                }}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              >
+                <ShoppingCart size={16} />
+                Add to Cart
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -48,14 +48,14 @@ const PageUser = () => {
   return (
     <section className="bg-white p-5 rounded-xl shadow-lg border">
       {/* Header */}
-      <div className="flex items-center justify-between mb-2 pl-8">
+      <div className="flex items-center justify-between mb-2 pl-4">
         <div className="flex items-center gap-2">
           <Users className="text-blue-600" size={24} />
           <h2 className="text-xl font-bold text-gray-800">Our Members</h2>
         </div>
       </div>
       <div>
-        <span className="bg-blue-100 text-blue-700 px-6 py-1 rounded-full text-sm font-medium">
+        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-medium">
           {totalUsers} member telah bergabung!
         </span>
       </div>
@@ -72,16 +72,16 @@ const PageUser = () => {
               alt={user.first_name}
               className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
             />
-            <div className="flex-1 min-w-0">
+            <div className="flex-1">
               <div className="flex justify-between items-center">
-                <h4 className="font-semibold text-gray-800">
+                <h3 className="font-semibold text-gray-800">
                   {user.first_name} {user.last_name}
-                </h4>
+                </h3>
               </div>
               <p className="text-xs text-gray-500">{user.email}</p>
 
               {/* Testimoni kecil */}
-              <div className="flex items-center gap-1 mt-1">
+              <div className="flex items-center gap-1">
                 <MessageSquareQuote size={12} className="text-gray-400" />
                 <span className="text-xs text-gray-600">
                   {getTestimonial(user.id)}
@@ -90,7 +90,7 @@ const PageUser = () => {
             </div>
           </div>
         ))}
-        {/* Page Navigation - Satu untuk semua */}
+        {/* Page Navigation */}
         <div className="flex justify-center gap-2 mb-4">
           {[1, 2].map((page) => (
             <button

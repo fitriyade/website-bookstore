@@ -5,10 +5,17 @@ import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer";
 import { useCart } from "@/context/cardContext";
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation"; // Perhatikan: next/navigation untuk App Router
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const CartPage = () => {
-  const router = useRouter(); // useRouter dari next/navigation
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const router = useRouter();
   const {
     cartItems,
     removeFromCart,
@@ -132,7 +139,7 @@ const CartPage = () => {
                           className="p-4 flex flex-col sm:flex-row gap-4 hover:bg-gray-50 transition-colors"
                         >
                           {/* Book Image */}
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <div className="w-24 h-32 bg-gray-100 rounded-lg overflow-hidden">
                               <img
                                 src={item.image}

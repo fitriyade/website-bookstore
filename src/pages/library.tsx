@@ -1,5 +1,4 @@
 "use client";
-
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer";
@@ -12,10 +11,11 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { useRouter } from "next/navigation"; // Perhatikan: next/navigation untuk App Router
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const LibraryPage = () => {
-  const router = useRouter(); // useRouter dari next/navigation
+  const router = useRouter();
   const { addToCart } = useCart();
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,11 +24,9 @@ const LibraryPage = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    // Calculate total pages
     const total = Math.ceil(BookList.length / booksPerPage);
     setTotalPages(total);
 
-    // Get books for current page
     const indexOfLastBook = currentPage * booksPerPage;
     const indexOfFirstBook = indexOfLastBook - booksPerPage;
     const current = BookList.slice(indexOfFirstBook, indexOfLastBook);
@@ -36,33 +34,29 @@ const LibraryPage = () => {
   }, [currentPage]);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const handlePageClick = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+  const handlePageClick = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  // Function to handle shopping cart click
   const handleShoppingCartClick = (e: React.MouseEvent, book: any) => {
     e.stopPropagation();
     addToCart(book);
-    router.push("/cart"); // Navigate to cart
+    router.push("/cart");
   };
 
   return (
-    <>
+    <main className="flex flex-col min-h-screen">
       <Navbar />
 
-      <div className="flex">
+      <div
+        className="flex flex-1 min-h-[calc(100vh-200px)]"
+        style={{ contain: "layout" }}
+      >
         <Sidebar />
 
         <div className="flex-1 p-6">
@@ -70,6 +64,7 @@ const LibraryPage = () => {
             <div className="flex justify-between items-center mb-4">
               <h1 className="font-semibold text-lg">Library</h1>
               <button
+                aria-label="View Cart"
                 onClick={() => router.push("/cart")}
                 className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
@@ -84,33 +79,32 @@ const LibraryPage = () => {
                   key={book.id}
                   onClick={() => setSelectedBook(book)}
                   className="group bg-gray-100 hover:bg-[#E3E3E3] rounded-lg p-3 cursor-pointer hover:shadow flex flex-col"
+                  style={{ contain: "layout" }}
                 >
-                  {/* Gambar */}
-                  <div className="aspect-[4/4] mb-2 overflow-hidden rounded">
-                    <img
+                  <div className="relative w-28 aspect-2/3 overflow-hidden rounded bg-gray-200 mx-auto">
+                    <Image
                       src={book.image}
                       alt={book.bookname}
-                      className="h-[220px] w-full object-contain rounded"
+                      fill
+                      className="object-contain"
+                      quality={75}
+                      priority={currentPage === 1}
                     />
                   </div>
 
-                  {/* Konten */}
-                  <div className="flex-1 flex flex-col">
-                    {/* Nama buku */}
-                    <h3 className="font-semibold text-sm md:text-base line-clamp-2 mb-1 flex-1">
+                  <div className="flex-1 flex flex-col mt-3">
+                    <h2 className="font-semibold text-sm md:text-base line-clamp-2 mb-1 flex-1">
                       {book.bookname}
-                    </h3>
-
-                    {/* Kategori */}
-                    <p className="text-xs text-gray-500 mb-2">
+                    </h2>
+                    <p className="text-xs text-gray-700 mb-2">
                       {book.kategori}
                     </p>
 
-                    {/* Baris bawah - Harga */}
                     <div className="flex justify-between items-center pt-2 border-t border-gray-300">
                       <span className="font-bold text-base">{book.price}</span>
                       <div className="flex gap-2">
                         <BookMarked
+                          aria-label={`Bookmark ${book.bookname}`}
                           size={18}
                           className="text-gray-600 hover:text-blue-600 transition-colors cursor-pointer"
                           onClick={(e) => {
@@ -119,6 +113,7 @@ const LibraryPage = () => {
                           }}
                         />
                         <ShoppingCart
+                          aria-label={`Add ${book.bookname} to cart`}
                           size={18}
                           onClick={(e) => handleShoppingCartClick(e, book)}
                           className="text-gray-700 hover:text-blue-600 transition-colors cursor-pointer"
@@ -130,10 +125,10 @@ const LibraryPage = () => {
               ))}
             </div>
 
-            {/* Pagination */}
             {BookList.length > booksPerPage && (
               <div className="flex justify-center items-center gap-2 mt-8">
                 <button
+                  aria-label="Previous Page"
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
                   className={`p-2 rounded-lg ${
@@ -151,6 +146,7 @@ const LibraryPage = () => {
                 ).map((page) => (
                   <button
                     key={page}
+                    aria-label={`Go to page ${page}`}
                     onClick={() => handlePageClick(page)}
                     className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium ${
                       currentPage === page
@@ -163,6 +159,7 @@ const LibraryPage = () => {
                 ))}
 
                 <button
+                  aria-label="Next Page"
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
                   className={`p-2 rounded-lg ${
@@ -179,22 +176,27 @@ const LibraryPage = () => {
         </div>
       </div>
 
-      {/* MODAL */}
       {selectedBook && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white w-full max-w-md rounded-xl p-6 relative mx-4">
             <button
+              aria-label="Close Book Details"
               onClick={() => setSelectedBook(null)}
               className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"
             >
               ✕
             </button>
 
-            <img
-              src={selectedBook.image}
-              alt={selectedBook.bookname}
-              className="h-[220px] mx-auto object-contain mb-4"
-            />
+            <div className="mb-3 flex justify-center">
+              <Image
+                src={selectedBook.image}
+                alt={selectedBook.bookname}
+                width={120}
+                height={180}
+                className="rounded object-contain"
+                quality={65}
+              />
+            </div>
 
             <h2 className="text-lg font-semibold">{selectedBook.bookname}</h2>
 
@@ -216,6 +218,7 @@ const LibraryPage = () => {
             <div className="flex justify-between items-center mt-4">
               <p className="font-bold text-lg">{selectedBook.price}</p>
               <button
+                aria-label={`Add ${selectedBook.bookname} to cart`}
                 onClick={() => {
                   addToCart(selectedBook);
                   setSelectedBook(null);
@@ -232,7 +235,7 @@ const LibraryPage = () => {
       )}
 
       <Footer />
-    </>
+    </main>
   );
 };
 

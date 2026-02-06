@@ -18,7 +18,7 @@ const Sidebar = () => {
             {/* Avatar bulat */}
             <div className="relative">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-700/10">
-                <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <div className="w-full h-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <span className="text-lg font-bold text-white">E</span>
                 </div>
               </div>
@@ -57,6 +57,7 @@ const Sidebar = () => {
 
       {/* Mobile Toggle Button */}
       <button
+        aria-label={isOpen ? "Close menu" : "Open menu"}
         className="lg:hidden fixed top-4 left-4 z-50 bg-[#222831] p-3 rounded-xl text-white shadow-lg hover:shadow-xl transition-all duration-300"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -70,12 +71,13 @@ const Sidebar = () => {
           <div
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40"
             onClick={() => setIsOpen(false)}
+            aria-label="Close sidebar overlay"
           />
           {/* Sidebar */}
           <div className="fixed top-0 left-0 w-64 h-full bg-[#0C134F] text-white shadow-xl z-50 p-6 overflow-y-auto">
             {/* Avatar  */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                 <span className="text-white font-bold">E</span>
               </div>
               <div>

@@ -1,7 +1,7 @@
 const BookList = [
   {
     id: 1,
-    image: "/image/dunia.jfif",
+    image: "/image/dunia.avif",
     bookname: "Sejarah Dunia yang Disembunyikan",
     kategori: "History",
     author: "Jonathan Black",
@@ -12,7 +12,7 @@ const BookList = [
 
   {
     id: 2,
-    image: "/image/laut.jfif",
+    image: "/image/laut.avif",
     bookname: "Laut Bercerita",
     kategori: "Fiction",
     author: "Leila S. Chudori",
@@ -23,7 +23,7 @@ const BookList = [
 
   {
     id: 3,
-    image: "/image/mie.jfif",
+    image: "/image/mie.avif",
     bookname: "Seporsi Mie Ayam Sebelum Mati",
     kategori: "Fiction",
     author: "Brian Khrisna",
@@ -34,7 +34,7 @@ const BookList = [
 
   {
     id: 4,
-    image: "/image/alchemist.jfif",
+    image: "/image/alchemist.avif",
     bookname: "The Alchemist",
     kategori: "Fiction",
     author: "Paulo Coelho",
@@ -45,7 +45,7 @@ const BookList = [
 
   {
     id: 5,
-    image: "/image/atomic.jfif",
+    image: "/image/atomic.avif",
     bookname: "Atomic Habbit",
     kategori: "Self-improvement",
     author: "James Clear",
@@ -55,7 +55,7 @@ const BookList = [
   },
   {
     id: 6,
-    image: "/image/bumi.jfif",
+    image: "/image/bumi.avif",
     bookname: "Bumi",
     kategori: "Fiction",
     author: "Tere Liye",
@@ -66,7 +66,7 @@ const BookList = [
 
   {
     id: 7,
-    image: "/image/javascript.jfif",
+    image: "/image/javascript.avif",
     bookname: "Mastering The Art Of Javascript",
     kategori: "Technology",
     author: "Alex Inversion",
@@ -76,7 +76,7 @@ const BookList = [
   },
   {
     id: 8,
-    image: "/image/edensor.jfif",
+    image: "/image/edensor.avif",
     bookname: "Edensor",
     kategori: "Fiction",
     author: "Andrea Hirata",
@@ -86,7 +86,7 @@ const BookList = [
   },
   {
     id: 9,
-    image: "/image/clean code.jfif",
+    image: "/image/clean code.avif",
     bookname: "Clean Code",
     kategori: "Technology",
     author: "Robert C. Martin",
@@ -96,7 +96,7 @@ const BookList = [
   },
   {
     id: 10,
-    image: "/image/dilan.jfif",
+    image: "/image/dilan.avif",
     bookname: "Dilan 1990",
     kategori: "Fiction",
     author: "Pidi Baiq",
@@ -106,7 +106,7 @@ const BookList = [
   },
   {
     id: 11,
-    image: "/image/filosofi.jfif",
+    image: "/image/filosofi.avif",
     bookname: "Filosofi Teras",
     kategori: "Self-improvement",
     author: "Henry Manampiring",
@@ -116,7 +116,7 @@ const BookList = [
   },
   {
     id: 12,
-    image: "/image/algoritma.jfif",
+    image: "/image/algoritma.avif",
     bookname: "Introduction Algorithm And Logic",
     kategori: "Technology",
     author: "Hina Sarwar",
@@ -126,7 +126,7 @@ const BookList = [
   },
   {
     id: 13,
-    image: "/image/ikigai.jfif",
+    image: "/image/ikigai.avif",
     bookname: "Ikigai",
     kategori: "Self-improvement",
     author: "Hector Garcia dan Francesc Miralles",
@@ -136,7 +136,7 @@ const BookList = [
   },
   {
     id: 14,
-    image: "/image/mandilog.jfif",
+    image: "/image/mandilog.avif",
     bookname: "Mandilog",
     kategori: "History",
     author: "Tan Malaka",
@@ -146,7 +146,7 @@ const BookList = [
   },
   {
     id: 15,
-    image: "/image/sapien.jfif",
+    image: "/image/sapien.avif",
     bookname: "Sapiens",
     kategori: "History",
     author: "Yuval Noah Harari",
@@ -156,7 +156,7 @@ const BookList = [
   },
   {
     id: 16,
-    image: "/image/rich dad.jfif",
+    image: "/image/rich dad.avif",
     bookname: "Rich Dad Poor Dad",
     kategori: "Finance",
     author: "Robert T. Kiyosaki",
@@ -166,7 +166,7 @@ const BookList = [
   },
   {
     id: 17,
-    image: "/image/the things.jfif",
+    image: "/image/the things.avif",
     bookname: "The Things You Can See Only You Slow Down",
     kategori: "Self-improvement",
     author: "Haemin Sunim",
@@ -176,7 +176,7 @@ const BookList = [
   },
   {
     id: 18,
-    image: "/image/power.jfif",
+    image: "/image/power.avif",
     bookname: "Power",
     kategori: "Self-improvement",
     author: "Robert Greene",
@@ -186,7 +186,7 @@ const BookList = [
   },
   {
     id: 19,
-    image: "/image/think and grow.jfif",
+    image: "/image/think and grow.avif",
     bookname: "Thing And Grow Rich",
     kategori: "Finance",
     author: "Napolean Hill",

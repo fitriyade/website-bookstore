@@ -7,6 +7,7 @@ import BookList from "@/helpers/book-list";
 import PageUser from "@/components/page-user";
 import Link from "next/link";
 import { Award, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -35,18 +36,22 @@ const HomePage = () => {
                 <h1 className="font-semibold text-lg mb-4">Trending Books</h1>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   {BookList.slice(0, 4).map((book) => (
-                    <div key={book.id} className="bg-gray-100 rounded-lg p-3">
+                    <div key={book.id} className="bg-gray-200 rounded-lg p-3">
                       <div className="overflow-hidden rounded">
-                        <img
+                        <Image
                           src={book.image}
                           alt={book.bookname}
-                          className="h-65 w-full object-cover object-top"
+                          width={248}
+                          height={369}
+                          sizes="248px"
+                          className="object-cover object-top"
+                          loading="lazy"
                         />
                       </div>
                       <p className="mt-2 text-sm font-semibold">
                         {book.bookname}
                       </p>
-                      <p className="text-xs text-gray-500">{book.kategori}</p>
+                      <p className="text-xs text-gray-700">{book.kategori}</p>
                     </div>
                   ))}
                 </div>
@@ -118,7 +123,7 @@ const HomePage = () => {
             {/* RIGHT */}
             <div className="space-y-6">
               {/* -----------------Membership Promo --------------------------------*/}
-              <section className="bg-gradient-to-br from-blue-600 to-gray-500 rounded-xl shadow-xl p-5 text-white relative overflow-hidden">
+              <section className="bg-linear-to-br from-blue-600 to-gray-500 rounded-xl shadow-xl p-5 text-white relative overflow-hidden">
                 <div className="absolute top-4 left-4 bg-yellow-400 text-purple-800 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                   <Award size={12} />
                   LIMITED OFFER
@@ -140,7 +145,7 @@ const HomePage = () => {
                         Rp 299.000
                       </span>
                       <span className="text-2xl font-bold">Rp 199.000</span>
-                      <span className="text-sm bg-red-500 px-2 py-1 rounded">
+                      <span className="text-sm bg-red-600 px-2 py-1 rounded">
                         -33%
                       </span>
                     </div>

@@ -5,6 +5,8 @@ export default function Document() {
     <Html lang="id">
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <title> Bookstore</title>
+        <meta name="description" content="Find your favorite books online" />
       </Head>
       <body>
         <Main />

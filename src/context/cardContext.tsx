@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-// Pastikan interface Book sesuai dengan data di BookList
 interface Book {
   id: number;
   bookname: string;
@@ -30,7 +29,6 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize cart from localStorage if available
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
       const savedCart = localStorage.getItem("cart");
@@ -82,7 +80,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
-      // Extract numeric value from price string (e.g., "Rp 180.000" -> 180000)
       const priceStr = item.price.replace(/[^\d]/g, "");
       const price = parseInt(priceStr) || 0;
       return total + price * item.quantity;

@@ -1,7 +1,18 @@
+// @/components/footer.tsx
 import { Phone, Mail, MapPinned } from "lucide-react";
+
 const Footer = () => {
   return (
-    <footer className="bg-[#0C134F] text-white">
+    <footer
+      className="bg-[#0C134F] text-white"
+      aria-label="Footer"
+      role="contentinfo"
+      // Tambahkan style untuk menghindari layout shift
+      style={{
+        minHeight: "200px", // Height tetap
+        contain: "layout style paint", // Optimasi rendering
+      }}
+    >
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand & Description */}
@@ -11,29 +22,9 @@ const Footer = () => {
               Your favorite online bookstore since 2020. We provide the best
               books with affordable prices.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="text-gray-300 hover:text-yellow-400 transition-colors"
-              >
-                <i className="bx bxl-facebook text-xl"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-yellow-400 transition-colors"
-              >
-                <i className="bx bxl-instagram text-xl"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-yellow-400 transition-colors"
-              >
-                <i className="bx bxl-twitter text-xl"></i>
-              </a>
-            </div>
           </div>
 
-          {/* Opening Hours  */}
+          {/* Opening Hours */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Store Hours</h4>
             <div className="space-y-2">

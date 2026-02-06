@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Search, ShoppingCart, BookHeart, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 
-
 const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   return (
@@ -13,7 +12,7 @@ const Navbar = () => {
         {/*Logo */}
         <div>
           <Image
-            src="/image/logo.png"
+            src="/image/logo.avif"
             alt="logo"
             width={150}
             height={150}
@@ -35,22 +34,41 @@ const Navbar = () => {
             />
           </div>
 
-          <div className="flex gap-4 mr-8 mt-1 items-right cursor-pointer">
+          <button
+            aria-label="Open shopping cart"
+            className="flex gap-2 mr-2 mt-1 items-center"
+          >
             <ShoppingCart />
+          </button>
+
+          <button
+            aria-label="Add book to wishlist"
+            className="flex gap-2 mt-1 mr-2 items-center"
+          >
             <BookHeart />
-          </div>
+          </button>
         </div>
 
-        {/*Responsive Mobile */}
-        <div className="flex lg:hidden item-center gap-2">
-          {/*Menu search terbuka */}
-          <button className="p-2" onClick={() => setSearchOpen(true)}>
+        {/* Responsive Mobile */}
+        <div className="flex lg:hidden items-center gap-2">
+          <button
+            className="p-2"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Open search"
+          >
             <Search />
           </button>
 
           <div className="flex gap-2 items-center">
-            <ShoppingCart />
-            <BookHeart />
+            {/* Shopping Cart Button */}
+            <button aria-label="Open shopping cart" className="p-2">
+              <ShoppingCart />
+            </button>
+
+            {/* Add to Wishlist Button */}
+            <button aria-label="Add book to wishlist" className="p-2">
+              <BookHeart />
+            </button>
           </div>
         </div>
 
@@ -59,7 +77,11 @@ const Navbar = () => {
           <div className="fixed inset-0 bg-white z-50 lg:hidden">
             <div className="p-4 flex items-center gap-4 border-b">
               {/*Menu search tertutup */}
-              <button className="p-2" onClick={() => setSearchOpen(false)}>
+              <button
+                className="p-2"
+                onClick={() => setSearchOpen(false)}
+                aria-label="Close search"
+              >
                 <ArrowLeft className="bx bx-arrow-back text-2xl" />
               </button>
               <div className="relative flex-1">
